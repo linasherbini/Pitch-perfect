@@ -10,8 +10,8 @@ import UIKit
 import AVFoundation
 
 class PlaySoundsViewController: UIViewController {
-    
-    
+
+
     @IBOutlet weak var snailButton: UIButton!
     @IBOutlet weak var rabbitButton: UIButton!
     @IBOutlet weak var chipmunkButton: UIButton!
@@ -19,23 +19,23 @@ class PlaySoundsViewController: UIViewController {
     @IBOutlet weak var echoButton: UIButton!
     @IBOutlet weak var reverbButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
-    
+
     var recordedAudioURL:URL!
     var audioFile:AVAudioFile!
     var audioEngine:AVAudioEngine!
     var audioPlayerNode: AVAudioPlayerNode!
     var stopTimer: Timer!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAudio()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureUI(.notPlaying)
     }
-    
+
     // MARK: - IBAction for every sound button depending on its tag value
     @IBAction func playSoundForButton(_ sender: UIButton) {
         switch(ButtonType(rawValue: sender.tag)!) {
@@ -54,18 +54,18 @@ class PlaySoundsViewController: UIViewController {
         }
         configureUI(.playing)
     }
-    
+
     // MARK: - IBAction for stop button that calls stopAudio function from the extension file
     @IBAction func stopButtonPressed(_ sender: AnyObject) {
         stopAudio()
     }
-    
+
     // MARK: - called in playSoundForButton to determine button tag
     enum ButtonType: Int {
         case slow = 0, fast, chipmunk, vader, echo, reverb
     }
-    
-    
-    
+
+
+
 
 }

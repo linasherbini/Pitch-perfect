@@ -14,11 +14,11 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     @IBOutlet weak var recordButton: UIButton!
     @IBOutlet weak var stopRecordingButton: UIButton!
     @IBOutlet weak var recordingLabel: UILabel!
-    
+
     var isRecording: Bool!
     var audioRecorder: AVAudioRecorder!
-    
-    
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         stopRecordingButton.isEnabled = false
@@ -27,7 +27,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-    
+
     // MARK: - IBACtion for recording button
     @IBAction func recordAudio(_ sender: Any) {
         isRecording = true
@@ -44,7 +44,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         audioRecorder.prepareToRecord()
         audioRecorder.record()
     }
-    
+
     // MARK: - IBACtion for recording button
     @IBAction func stopRecording(_ sender: Any) {
         isRecording = false
@@ -53,7 +53,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         let audioSession = AVAudioSession.sharedInstance()
         try! audioSession.setActive(false)
     }
-    
+
     // MARK: - Audio Recorder Delegate
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if flag {
@@ -62,7 +62,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
             print("Recording was not successful")
         }
     }
-    
+
     //MARK: - Segue preparation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "stopRecording" {
@@ -71,19 +71,12 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
             playSoundsVC.recordedAudioURL = recordedAudioURL
         }
     }
-    
+
     //MARK: - UI Configuration function
     func configureUI(_ recording: Bool) {
-        if recording {
-            recordingLabel.text = "Recording in progress"
-            stopRecordingButton.isEnabled = true
-            recordButton.isEnabled = false
-        } else {
-            recordingLabel.text = "Tap to Record"
-            recordButton.isEnabled = true
-            stopRecordingButton.isEnabled = false
-        }
+        recordButton.isEnabled.toggle()
+        stopRecordingButton.isEnabled.toggle()
+        recordingLabel.text = recording ? "Recording in Progress" : "Tap to Record"
     }
-    
-}
 
+}
